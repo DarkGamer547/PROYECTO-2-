@@ -1,17 +1,31 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('contactForm');
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const nombre = document.getElementById('nombre').value;
-        const email = document.getElementById('email').value;
-        const mensaje = document.getElementById('mensaje').value;
+/* script.js */
+document.getElementById("contactForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let message = document.getElementById("message").value;
 
-        if (nombre && email && mensaje) {
-            const modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-            modal.show();
-            form.reset();
-        } else {
-            alert('Por favor, complete todos los campos.');
-        }
+    if (!validateEmail(email)) {
+        alert("❌ Ingresa un correo electrónico válido");
+        return;
+    }
+
+    alert(`✅ ¡Gracias, ${name}! Hemos recibido tu mensaje y te contactaremos pronto.`);
+    this.reset();
+});
+
+function validateEmail(email) {
+    let regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}
+
+// Smooth scroll
+document.querySelectorAll(".nav-link").forEach(anchor => {
+    anchor.addEventListener("click", function(event) {
+        event.preventDefault();
+        const targetId = this.getAttribute("href").substring(1);
+        document.getElementById(targetId).scrollIntoView({
+            behavior: "smooth"
+        });
     });
 });
